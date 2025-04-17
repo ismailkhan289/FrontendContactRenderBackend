@@ -30,14 +30,11 @@ export const UserProvider = ({ children }) => {
           fetchUser();
         }, [setAuthenticated, setLoading, setUser])
   
-      const login = () => {
-          let port = (window.location.port ? ':' + window.location.port : '');
-          if (port === ':3000') {
-            port = ':8080';
-          }
-          // redirect to a protected URL to trigger authentication
-          window.location.href = `//${window.location.hostname}${port}/api/private`;
-          }; 
+        const login = () => {
+          // For production — redirect to Render backend's auth-protected endpoint
+          window.location.href = 'https://renderbackend-pzkw.onrender.com/api/private';
+        };
+        
       const logout = async () => {
           try {
               const res = await fetch('api/logout', {
