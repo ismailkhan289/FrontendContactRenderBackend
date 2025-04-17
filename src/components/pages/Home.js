@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Container } from 'reactstrap';
+import { Button } from 'reactstrap';
 import { UserContext } from '../coreComp/UserContext';
 
 const Home = () => {

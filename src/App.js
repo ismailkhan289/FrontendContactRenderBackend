@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
 import './App.css';
 import { BrowserRouter as Router, Routes,Route } from 'react-router-dom';
 import { UserProvider } from './components/coreComp/UserContext';

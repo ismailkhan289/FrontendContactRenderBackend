@@ -1,19 +1,16 @@
 import React, { useState, useContext } from 'react';
 import { useEffect } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input,Row, Col, Badge, CardText, Card, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
-import { useParams } from 'react-router-dom';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input,Row, Badge, CardText, Card, CardBody, CardTitle } from 'reactstrap';
 import { UserContext } from '../coreComp/UserContext';
     
     const Contacts = () => {
         const getCsrfToken = () => {
             return document.cookie.split(';').find(row=>row.startsWith('XSRF-TOKEN')).split('=')[1] || '';
            }
-        const {user} = useContext(UserContext);
         const {authenticated} = useContext(UserContext);
         const [contacts, setContacts] = useState([]);
         const [loading, setLoading] = useState(true);
         const [modal, setModal] = useState(false);
-        const {id} = useParams();   
         const initialNewContactValues= {
             name: '',
             email: '',

@@ -16,7 +16,7 @@
     "reactstrap": "^9.2.3",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "http://localhost:8080",
+  "proxy": "https://renderbackend-pzkw.onrender.com",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

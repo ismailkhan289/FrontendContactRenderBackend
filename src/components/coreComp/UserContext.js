@@ -1,6 +1,4 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Container } from 'reactstrap';
 import { useCookies } from 'react-cookie';
 export const UserContext = createContext();
 

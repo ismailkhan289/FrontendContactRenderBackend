@@ -1,8 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from './UserContext';
-import { Link } from 'react-router-dom';
-import { Button, Container } from 'reactstrap';
-import { useCookies } from 'react-cookie';
+import {  Container } from 'reactstrap';
 import NavBarApp from './NavBarApp';
 import FooterApp from './FooterApp';
 
