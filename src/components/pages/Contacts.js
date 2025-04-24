@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useEffect } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input,Row, Badge, CardText, Card, CardBody, CardTitle } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label,
+        Input,Row, Badge, CardText, Card, CardBody, CardTitle } from 'reactstrap';
 import { UserContext } from '../coreComp/UserContext';
     
     const Contacts = () => {
@@ -40,7 +41,7 @@ import { UserContext } from '../coreComp/UserContext';
             formData.append("photo", photoFile);
         }
         //send a POST request to the server
-        await fetch('api/contact', {
+        await fetch(`${process.env.REACT_APP_API_URL}/api/contact`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -65,7 +66,9 @@ import { UserContext } from '../coreComp/UserContext';
         event.preventDefault();
         setLoading(true);
         try {
-        const response = await fetch(`/api/contact/${id}`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/contact/${id}`, {
+            credentials: 'include'
+        });
         if (!response.ok) throw new Error("Failed to fetch contact");
         const data = await response.json();
         setNewContact(data);  // ✅ Store fetched contact
@@ -92,7 +95,7 @@ import { UserContext } from '../coreComp/UserContext';
         }
 
         //send a PUT request to the server
-        await fetch(`api/contact/${id}`, {
+        await fetch(`${process.env.REACT_APP_API_URL}/api/contact/${id}`, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -113,12 +116,12 @@ import { UserContext } from '../coreComp/UserContext';
     }
 
     // Function to delete contact
-    const reomveContact = async (event, id) => {
+    const removeContact = async (event, id) => {
         event.preventDefault();
         if (!window.confirm("Are you sure you want to delete this contact?")) return;
         //send a DELETE request to the server
        try{
-        const response = await fetch(`api/contact/${id}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/contact/${id}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -144,7 +147,7 @@ import { UserContext } from '../coreComp/UserContext';
         <div className="d-flex flex-column align-items-center justify-content-center p-3" style={{ backgroundColor: "#b5c7b3", borderTopLeftRadius: "10px", borderBottomLeftRadius: "10px" }}>
           {/* Profile Image */}
           <img
-            src={myContact.photoUrl? myContact.photoUrl:"https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"}
+            src={myContact.photoUrl? `${process.env.REACT_APP_API_URL}${myContact.photoUrl}`:"https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"}
             alt="Profile"
             className="rounded-circle mb-2"
             style={{ width: "80px", height: "80px", objectFit: "cover", border: "3px solid green" }}
@@ -165,7 +168,7 @@ import { UserContext } from '../coreComp/UserContext';
           {/* Buttons */}
             <div className="d-flex justify-content-end align-items-center">
             <Button color="primary" size="sm" className='me-2'>View Profile</Button>
-            <Button color="danger" size="sm" onClick={(e)=>{e.stopPropagation(); reomveContact(e, myContact.id)}}>Delete</Button>
+            <Button color="danger" size="sm" onClick={(e)=>{e.stopPropagation(); removeContact(e, myContact.id)}}>Delete</Button>
             </div>
         </CardBody>
           </Card>
@@ -175,7 +178,9 @@ import { UserContext } from '../coreComp/UserContext';
     //fetching contacts
     const fetchContacts = async () => {
         try {
-            const response = await fetch('api/contacts');
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/contacts`, {
+                credentials: 'include'
+            });
             const data = await response.json();
             setContacts(data);
         } catch (error) {

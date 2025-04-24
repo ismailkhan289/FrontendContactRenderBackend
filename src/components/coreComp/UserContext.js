@@ -11,8 +11,10 @@ export const UserProvider = ({ children }) => {
       useEffect(() => {
           // setLoading(true);
           const fetchUser = async () => {
+            // console.log(`${process.env.REACT_APP_API_URL}`);
             try {
-            const response = await fetch('api/user', { credentials: 'include' });
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user`, { 
+              credentials: 'include' });
             const body = await response.text();
             if (body === '') {
               setAuthenticated(false);
@@ -29,15 +31,33 @@ export const UserProvider = ({ children }) => {
       
           fetchUser();
         }, [setAuthenticated, setLoading, setUser])
-  
+
         const login = () => {
-          // For production — redirect to Render backend's auth-protected endpoint
-          window.location.href = 'https://renderbackend-pzkw.onrender.com/api/private';
+          const backendBaseUrl = process.env.REACT_APP_API_URL;
+          window.location.href = `${backendBaseUrl}/api/private`;
         };
+
+      //  const login = () => {
+      //     const backendBaseUrl = process.env.REACT_APP_API_URL;
+      //     const redirectUri = `${window.location.origin}/contacts`; // or wherever you want to go after login
+      //     window.location.href = `${backendBaseUrl}/oauth2/authorization/auth0?redirect_uri=${redirectUri}`;
+      //   };
+  
+        // const login = () => {
+        //     const backendBaseUrl = process.env.REACT_APP_API_URL;
+        //     // console.log(backendBaseUrl);
+        //     // console.log(`${backendBaseUrl}/api/private`);
+        //     // window.location.href = `${backendBaseUrl}/api/login`;
+        //     // window.location.href = `${backendBaseUrl}/api/login?redirect_uri=${window.location.origin}`;
+        //     // window.location.href = `${backendBaseUrl}/api/login?redirect_uri=${window.location.origin}/contacts`;
+        //     // window.location.href = `${backendBaseUrl}/api/login?redirect_uri=${window.location.origin}/groups`;
+        
+        //   window.location.href = `${backendBaseUrl}/api/private`;
+        // };
         
       const logout = async () => {
           try {
-              const res = await fetch('api/logout', {
+              const res = await fetch(`${process.env.REACT_APP_API_URL}/api/logout`, {
                   method: 'POST', credentials: 'include',
                   headers: { 'X-XSRF-TOKEN': cookies['XSRF-TOKEN'] }
               });
